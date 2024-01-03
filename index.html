@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="">
+        <title>Cods</title>
+        <link rel="stylesheet" href="./style.css">
+    </head>
+    <body translate="no">
+        <a href="https://serhio87.github.io/First/">Back to CV</a>
+        <h1>Задание:</h1>
+        <h2>Подсчитать количество слов в каждой строке исходного файла и записать  их в новый файл:</h2>
+        
+        <h3>
+                #include &lt;stdio.h&gt;<br>
+                #include &lt;string.h&gt;<br>
+                #include &lt;ctype.h&gt;<br><br>
+                
+                #define MAX_LENGTH 100<br><br>
+                
+                <pre>int countWords(char str[]) {
+                    int count = 0;
+                    int inWord = 0;
+                    for (int i = 0; str[i] != '\0'; i++) {
+                        if (isalpha(str[i])) {
+                            if (!inWord) {
+                                count++;
+                                inWord = 1;
+                            }
+                        } else {
+                            inWord = 0;
+                        }
+                    }
+                    return count;
+                }
+                int main() {
+                    setlocale(0,"");
+                    FILE *file = fopen("input.txt", "r");
+                    FILE *outputFile = fopen("output.txt", "w");
+                
+                    if (file == NULL || outputFile == NULL) {
+                        printf("Не удается открыть файл.\n");
+                        return 1;
+                    }
+                
+                    char line[MAX_LENGTH];
+                    while (fgets(line, sizeof(line), file)) {
+                        int wordsCount = countWords(line);
+                        fprintf(outputFile, "Количество слов: %d\n", wordsCount);
+                    }
+                    fclose(file);
+                    fclose(outputFile);
+                    printf("Результат записан в файл output.txt\n");
+                getch();
+                    return 0;
+                }       
+            </pre>         
+        </h3>
+<hr>
+<a href="./OAiP.html">	&#128070;	&#128070;	&#128070;Go Up</a>
+<hr>
+<h1>Задание:</h1>
+        <h2>
+            Задан двухмерный массив вещественных чисел. 
+            Заменить все отрицательные элементы нулями и подсчитать сумму положительных элементов в каждом столбце. 
+            Размерность массива (число столбцов, число строк) и значения его элементов ввести с клавиатуры.
+        </h2>
+        <h3>
+            #include &lt;stdio.h&gt;<br>
+
+                #define MAX_ROWS 100<br>
+                #define MAX_COLS 100<br>
+                
+                <pre>void inputArray(float array[][MAX_COLS], int rows, int cols) {
+                    printf("Введите %d x %d элементов массива:\n", rows, cols);
+                    for (int i = 0; i < rows; i++) {
+                        for (int j = 0; j < cols; j++) {
+                            scanf("%f", &array[i][j]);
+                            
+                        }
+                    }
+                }
+                
+                void change(float array[][MAX_COLS], int rows, int cols) {
+                    float sum[MAX_COLS] = {0};
+                
+                    for (int j = 0; j < cols; j++) {
+                        for (int i = 0; i < rows; i++) {
+                            if (array[i][j] < 0) {
+                                array[i][j] = 0;
+                            } else {
+                                sum[j] += array[i][j];
+                            }
+                        }
+                    }
+                
+                    printf("Массив после замены отрицательных элементов:\n");
+                    for (int i = 0; i < rows; i++) {
+                        for (int j = 0; j < cols; j++) {
+                            printf("%.2f ", array[i][j]);
+                        }
+                        printf("\n");
+                    }
+                
+                    printf("Сумма положительных элементов в каждом столбце:\n");
+                    for (int j = 0; j < cols; j++) {
+                        printf("Столбец %d: %.2f\n", j+1, sum[j]);
+                    }
+                }
+                
+                int main() 
+                {   setlocale(0,"");
+                    float array[MAX_ROWS][MAX_COLS];
+                    int rows, cols;
+                
+                    printf("Введите количество строк и столбцов массива (не более %d x %d): ", MAX_ROWS, MAX_COLS);
+                    scanf("%d %d", &rows, &cols);
+                    
+                    if (rows > MAX_ROWS || rows <= 0 || cols > MAX_COLS || cols <= 0) {
+                        printf("Размерность массива должна быть от 1 до %d x %d\n", MAX_ROWS, MAX_COLS);
+                        return 1;
+                        }
+                    
+                    inputArray(array, rows, cols);
+                    printf("Массив :\n");
+                    for (int i = 0; i < rows; i++) {
+                        for (int j = 0; j < cols; j++) {
+                            printf("%.2f ", array[i][j]);
+                        }
+                        printf("\n");
+                    }
+                    change(array, rows, cols);
+                    getch();
+                    return 0;
+                
+                }
+            </pre>                
+        </h3>
+        <hr>
+<a href="./OAiP.html">	&#128070;	&#128070;	&#128070;Go Up</a>
+    </body>
+</html>
